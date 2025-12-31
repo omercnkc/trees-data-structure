@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tree veri yapılarını görerek öğren - Binary Tree'den Red-Black Tree'ye kadar interaktif eğitim platformu">
+    <title>TreeLab - Ağaç Veri Yapılarını Görerek Öğren</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌳</text></svg>">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/design-tokens.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">🌳 TreeLab</a>
+            
+            <div class="navbar-toggle" id="navbarToggle">
+                <span class="navbar-toggle-bar"></span>
+                <span class="navbar-toggle-bar"></span>
+                <span class="navbar-toggle-bar"></span>
+            </div>
+            
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="index.html" class="navbar-link active">Ana Sayfa</a></li>
+                <li><a href="trees.html" class="navbar-link">Ağaç Türleri</a></li>
+                <li><a href="comparison.html" class="navbar-link">Karşılaştırma</a></li>
+                <li><a href="#about" class="navbar-link">Hakkında</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title animate-fadeIn">
+                Tree Veri Yapılarını Görerek Öğren
+            </h1>
+            <p class="hero-subtitle animate-fadeIn">
+                Binary Tree'den Red-Black Tree'ye kadar tüm ağaçlar, C++ kodları ve görsel simülasyonlarla. 
+                Algoritma Analizi dersinde başarı için interaktif eğitim platformu.
+            </p>
+            <div class="hero-cta animate-fadeIn">
+                <a href="trees.html" class="btn btn-primary btn-lg">
+                    🚀 Ağaçları Keşfet
+                </a>
+                <a href="#features" class="btn btn-outline btn-lg">
+                    📚 Özellikler
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-12">
+        <div class="container">
+            <h2 class="text-center mb-8">Platform Özellikleri</h2>
+            
+            <div class="grid grid-cols-1 gap-6" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <!-- Feature 1 -->
+                <div class="card feature-card animate-fadeIn">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Görsel Ağaç Simülasyonu</h3>
+                    <p class="feature-description">
+                        Canvas tabanlı interaktif animasyonlarla ağaç işlemlerini adım adım izleyin. 
+                        Her düğüm ekleme, silme ve rotasyon işlemini görsel olarak takip edin.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="card feature-card animate-fadeIn" style="animation-delay: 0.1s;">
+                    <div class="feature-icon">💻</div>
+                    <h3 class="feature-title">C++ Kod Örnekleri</h3>
+                    <p class="feature-description">
+                        Her ağaç türü için eksiksiz C++ implementasyonları. 
+                        Node yapısından traversal fonksiyonlarına kadar tüm kodlar mevcut.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="card feature-card animate-fadeIn" style="animation-delay: 0.2s;">
+                    <div class="feature-icon">⏱️</div>
+                    <h3 class="feature-title">Zaman Karmaşıklığı Analizi</h3>
+                    <p class="feature-description">
+                        Her işlem için Big-O notasyonu ve karşılaştırmalı tablolar. 
+                        Average ve worst-case senaryolarını detaylı olarak öğrenin.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="card feature-card animate-fadeIn" style="animation-delay: 0.3s;">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">Ekle / Sil / Dengele</h3>
+                    <p class="feature-description">
+                        Interaktif kontroller ile kendi ağacınızı oluşturun. 
+                        Animasyon hızını ayarlayın, adım adım ilerleyin veya otomatik oynatın.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tree Types Overview -->
+    <section class="py-12 bg-white">
+        <div class="container">
+            <h2 class="text-center mb-8">Desteklenen Ağaç Türleri</h2>
+            
+            <div class="grid grid-cols-1 gap-4" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Binary Tree</h4>
+                        <p class="card-subtitle">Temel ağaç yapısı</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Her düğümün en fazla 2 child'ı olan temel ağaç yapısı. Tüm ağaç türlerinin temeli.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="trees.html?type=binary" class="btn btn-sm btn-primary">İncele →</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Binary Search Tree</h4>
+                        <p class="card-subtitle">Sıralı arama ağacı</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Sol alt ağaçtaki değerler küçük, sağdakiler büyük. Hızlı arama için optimize edilmiş.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="trees.html?type=bst" class="btn btn-sm btn-primary">İncele →</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">AVL Tree</h4>
+                        <p class="card-subtitle">Dengeli ağaç</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Otomatik dengelenen BST. Rotasyonlarla yükseklik farkını 1'de tutar.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="trees.html?type=avl" class="btn btn-sm btn-primary">İncele →</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Red-Black Tree</h4>
+                        <p class="card-subtitle">Renkli dengeli ağaç</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Renk özelliği ile dengeli kalan BST. Garantili O(log n) performans.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="trees.html?type=redblack" class="btn btn-sm btn-primary">İncele →</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Heap</h4>
+                        <p class="card-subtitle">Min/Max heap yapısı</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Complete binary tree. Priority queue implementasyonu için ideal.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="trees.html?type=heap" class="btn btn-sm btn-primary">İncele →</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">B-Tree</h4>
+                        <p class="card-subtitle">Çok yollu ağaç</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Veritabanı ve dosya sistemlerinde kullanılan, balanced multi-way tree.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="trees.html?type=btree" class="btn btn-sm btn-primary">İncele →</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">B+ Tree</h4>
+                        <p class="card-subtitle">Gelişmiş B-Tree</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Tüm veriler yapraklarda. Range query için optimize edilmiş B-Tree varyantı.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="trees.html?type=bplus" class="btn btn-sm btn-primary">İncele →</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Trie</h4>
+                        <p class="card-subtitle">Prefix tree</p>
+                    </div>
+                    <div class="card-body">
+                        <p>String saklama ve arama için özel ağaç. Autocomplete sistemlerinde kullanılır.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="trees.html?type=trie" class="btn btn-sm btn-primary">İncele →</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Segment Tree</h4>
+                        <p class="card-subtitle">Aralık sorgu ağacı</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Range minimum/maximum/sum sorguları için kullanılan özel ağaç yapısı.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="trees.html?type=segment" class="btn btn-sm btn-primary">İncele →</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Fenwick Tree</h4>
+                        <p class="card-subtitle">Binary Indexed Tree</p>
+                    </div>
+                    <div class="card-body">
+                        <p>Prefix sum hesaplamaları için optimize edilmiş, kompakt ağaç yapısı.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="trees.html?type=fenwick" class="btn btn-sm btn-primary">İncele →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-12">
+        <div class="container">
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <h2 class="text-center mb-6">Hakkında</h2>
+                <p style="color: var(--color-gray-700); line-height: var(--line-height-relaxed);">
+                    <strong>TreeLab</strong>, Algoritma Analizi ve Veri Yapıları dersi kapsamında ağaç veri yapılarını 
+                    öğrenmek isteyen üniversite öğrencileri için tasarlanmış interaktif bir eğitim platformudur.
+                </p>
+                <p style="color: var(--color-gray-700); line-height: var(--line-height-relaxed);">
+                    Platform, teorik bilgiyi görsel animasyonlar ve C++ kod örnekleriyle birleştirerek, 
+                    karmaşık ağaç algoritmalarını anlaşılır hale getirir. Her ağaç türü için eksiksiz 
+                    implementasyon, zaman karmaşıklığı analizi ve kullanım senaryoları sunulmaktadır.
+                </p>
+                <p style="color: var(--color-gray-700); line-height: var(--line-height-relaxed); margin-bottom: 0;">
+                    🎓 <strong>Hedef Kitle:</strong> Yazılım Mühendisliği ve Bilgisayar Mühendisliği öğrencileri<br>
+                    💻 <strong>Kod Dili:</strong> C++<br>
+                    🌐 <strong>İçerik Dili:</strong> Türkçe
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 TreeLab - Ağaç Veri Yapıları Eğitim Platformu</p>
+            <p>Algoritma Analizi ve Veri Yapıları Dersi | SOLID Prensiplerine Uygun Tasarım</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/utils/EventBus.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

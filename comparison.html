@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ağaç türlerini yan yana karşılaştırın">
+    <title>Karşılaştırma - TreeLab</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌳</text></svg>">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/design-tokens.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">🌳 TreeLab</a>
+            
+            <div class="navbar-toggle" id="navbarToggle">
+                <span class="navbar-toggle-bar"></span>
+                <span class="navbar-toggle-bar"></span>
+                <span class="navbar-toggle-bar"></span>
+            </div>
+            
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="index.html" class="navbar-link">Ana Sayfa</a></li>
+                <li><a href="trees.html" class="navbar-link">Ağaç Türleri</a></li>
+                <li><a href="comparison.html" class="navbar-link active">Karşılaştırma</a></li>
+                <li><a href="index.html#about" class="navbar-link">Hakkında</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="margin-top: var(--navbar-height); padding: var(--space-8);">
+        <div class="container">
+            <h1 class="text-center mb-8">Ağaç Türleri Karşılaştırması</h1>
+            
+            <!-- Comparison Table -->
+            <div class="card">
+                <h2 class="mb-6">BST vs AVL Tree</h2>
+                
+                <table class="complexity-table" style="margin-bottom: var(--space-6);">
+                    <thead>
+                        <tr>
+                            <th>Özellik</th>
+                            <th>Binary Search Tree</th>
+                            <th>AVL Tree</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Denge Garantisi</strong></td>
+                            <td>❌ Yok</td>
+                            <td>✅ Her düğümde yükseklik farkı ≤ 1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Search - Average</strong></td>
+                            <td>O(log n)</td>
+                            <td>O(log n)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Search - Worst</strong></td>
+                            <td>O(n) - Dengesiz durumda</td>
+                            <td>O(log n) - Garantili</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Insert - Average</strong></td>
+                            <td>O(log n)</td>
+                            <td>O(log n)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Insert - Worst</strong></td>
+                            <td>O(n)</td>
+                            <td>O(log n)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Delete - Average</strong></td>
+                            <td>O(log n)</td>
+                            <td>O(log n)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Delete - Worst</strong></td>
+                            <td>O(n)</td>
+                            <td>O(log n)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ekstra Bellek</strong></td>
+                            <td>Yok (sadece pointer'lar)</td>
+                            <td>Her düğümde height bilgisi</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rotasyon</strong></td>
+                            <td>❌ Yok</td>
+                            <td>✅ Insert/Delete'de gerektiğinde</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kullanım Alanı</strong></td>
+                            <td>Basit uygulamalar, cache</td>
+                            <td>Kritik arama performansı gereken sistemler</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="grid grid-cols-1 gap-6" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                    <div style="padding: var(--space-4); background: var(--color-gray-50); border-radius: var(--radius-md);">
+                        <h4 style="margin-bottom: var(--space-3);">📊 BST'nin Avantajları</h4>
+                        <ul style="padding-left: var(--space-6); color: var(--color-gray-700);">
+                            <li>Daha basit implementasyon</li>
+                            <li>Daha az bellek kullanımı</li>
+                            <li>Ekleme/silme daha hızlı (rotasyon yok)</li>
+                            <li>Average case'de yeterli performans</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="padding: var(--space-4); background: var(--color-gray-50); border-radius: var(--radius-md);">
+                        <h4 style="margin-bottom: var(--space-3);">⚖️ AVL'nin Avantajları</h4>
+                        <ul style="padding-left: var(--space-6); color: var(--color-gray-700);">
+                            <li>Garantili O(log n) worst case</li>
+                            <li>Daima dengeli yapı</li>
+                            <li>Arama yoğun uygulamalarda üstün</li>
+                            <li>Predictable performans</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- When to use what -->
+            <div class="grid grid-cols-1 gap-6 mt-8" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
+                <div class="card">
+                    <h3 class="mb-4">🎯 BST Kullanılmalı</h3>
+                    <ul style="padding-left: var(--space-6); color: var(--color-gray-700); line-height: var(--line-height-relaxed);">
+                        <li>Veri seti rastgele/dengeli geliyorsa</li>
+                        <li>Basitlik önemliyse</li>
+                        <li>Bellek kısıtı varsa</li>
+                        <li>Performans kritik değilse</li>
+                        <li>Öğrenme/eğitim amaçlı</li>
+                    </ul>
+                    <div style="margin-top: var(--space-6);">
+                        <a href="trees.html?type=bst" class="btn btn-primary">BST'yi İncele →</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="mb-4">⚡ AVL Kullanılmalı</h3>
+                    <ul style="padding-left: var(--space-6); color: var(--color-gray-700); line-height: var(--line-height-relaxed);">
+                        <li>Worst case garantisi gerekiyorsa</li>
+                        <li>Arama işlemi çok sık yapılıyorsa</li>
+                        <li>Veri sıralı/sıralıya yakın geliyorsa</li>
+                        <li>Kritik sistemlerde (database indexing)</li>
+                        <li>Real-time sistemlerde</li>
+                    </ul>
+                    <div style="margin-top: var(--space-6);">
+                        <a href="trees.html?type=avl" class="btn btn-primary">AVL'yi İncele →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Complexity Comparison Chart -->
+            <div class="card mt-8">
+                <h2 class="mb-6">Performans Karşılaştırması</h2>
+                <div style="padding: var(--space-6); background: var(--color-gray-50); border-radius: var(--radius-md); text-align: center;">
+                    <p style="font-size: var(--font-size-lg); color: var(--color-gray-700); margin-bottom: var(--space-4);">
+                        <strong>BST Worst Case Örneği:</strong><br>
+                        Sıralı veri (1, 2, 3, 4, 5) eklenirse → Linked list gibi davranır → O(n)
+                    </p>
+                    <p style="font-size: var(--font-size-lg); color: var(--color-gray-700);">
+                        <strong>AVL Garantisi:</strong><br>
+                        Aynı veri eklenirse → Otomatik rotasyonlar → Her zaman dengeli → O(log n)
+                    </p>
+                </div>
+                
+                <div style="margin-top: var(--space-8); padding: var(--space-4); border-left: 4px solid var(--color-primary-500); background: var(--color-primary-50); border-radius: var(--radius-md);">
+                    <p style="color: var(--color-gray-800); font-weight: var(--font-weight-medium);">
+                        💡 <strong>Pratik Tavsiye:</strong> Eğitim aşamasında önce BST'yi öğrenin ve anlayın. 
+                        Dengesiz durumları gözlemleyin. Sonra AVL'nin bu sorunu nasıl çözdüğünü inceleyin. 
+                        Bu sıralama, ağaç veri yapılarının mantığını kavramanızı kolaylaştıracaktır.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 TreeLab - Ağaç Veri Yapıları Eğitim Platformu</p>
+            <p>Algoritma Analizi ve Veri Yapıları Dersi | SOLID Prensiplerine Uygun Tasarım</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/utils/EventBus.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

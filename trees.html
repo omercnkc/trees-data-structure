@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interaktif ağaç veri yapıları görselleştirmesi">
+    <title>Ağaç Türleri - TreeLab</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌳</text></svg>">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/design-tokens.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    
+    <style>
+        .tree-page-layout {
+            display: flex;
+            min-height: calc(100vh - var(--navbar-height));
+            margin-top: var(--navbar-height);
+        }
+        
+        .content-area {
+            flex: 1;
+            padding: var(--space-8);
+            overflow-y: auto;
+            margin-left: var(--sidebar-width);
+        }
+        
+        .tree-info-section {
+            background: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .visualization-container {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--space-6);
+            margin-bottom: var(--space-6);
+        }
+        
+        @media (max-width: 1024px) {
+            .content-area {
+                margin-left: 0;
+            }
+            
+            .visualization-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tree-page-layout {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: static;
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--color-gray-200);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">🌳 TreeLab</a>
+            
+            <div class="navbar-toggle" id="navbarToggle">
+                <span class="navbar-toggle-bar"></span>
+                <span class="navbar-toggle-bar"></span>
+                <span class="navbar-toggle-bar"></span>
+            </div>
+            
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="index.html" class="navbar-link">Ana Sayfa</a></li>
+                <li><a href="trees.html" class="navbar-link active">Ağaç Türleri</a></li>
+                <li><a href="comparison.html" class="navbar-link">Karşılaştırma</a></li>
+                <li><a href="index.html#about" class="navbar-link">Hakkında</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="tree-page-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="treeSidebar">
+            <div class="sidebar-content">
+                <h3 class="sidebar-title">Ağaç Türleri</h3>
+                <ul class="sidebar-menu" id="treeTypeMenu">
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link active" data-tree-type="bst">
+                            📊 Binary Search Tree
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tree-type="avl">
+                            ⚖️ AVL Tree
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tree-type="redblack">
+                            🔴 Red-Black Tree
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tree-type="heap">
+                            📚 Min Heap
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tree-type="btree">
+                            🌲 B-Tree <small>(Yakında)</small>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tree-type="bplus">
+                            🌳 B+ Tree
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tree-type="trie">
+                            🔤 Trie
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tree-type="segment">
+                            📏 Segment Tree
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tree-type="fenwick">
+                            🔢 Fenwick Tree
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content-area">
+            <!-- Tree Info -->
+            <div class="tree-info-section">
+                <h1 id="treeTitle">Binary Search Tree</h1>
+                <p id="treeDescription">
+                    Binary Search Tree (BST), her düğümün en fazla iki child'a sahip olduğu ve sol alt ağaçtaki tüm değerlerin  
+                    kökten küçük, sağ alt ağaçtakilerinse büyük olduğu bir ağaç yapısıdır. Hızlı arama, ekleme ve silme işlemleri için kullanılır.
+                </p>
+                <div style="display: flex; gap: var(--space-4); flex-wrap: wrap; margin-top: var(--space-4);">
+                    <div>
+                        <strong>Düğüm Sayısı:</strong> <span id="nodeCount">0</span>
+                    </div>
+                    <div>
+                        <strong>Yükseklik:</strong> <span id="treeHeight">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualization & Controls -->
+            <div class="visualization-container">
+                <!-- Canvas -->
+                <div class="tree-canvas-container">
+                    <canvas id="treeCanvas"></canvas>
+                </div>
+
+                <!-- Control Panel -->
+                <div class="control-panel" style="min-width: 300px;">
+                    <h3 style="margin-bottom: var(--space-4);">Kontroller</h3>
+                    
+                    <div class="control-group">
+                        <label class="control-label" for="inputValue">Değer Gir</label>
+                        <input type="text" id="inputValue" class="control-input" placeholder="Örn: 42 (veya kelime)">
+                    </div>
+
+                    <div class="control-buttons">
+                        <button class="btn btn-primary btn-sm" id="btnInsert">➕ Ekle</button>
+                        <button class="btn btn-secondary btn-sm" id="btnDelete">➖ Sil</button>
+                        <button class="btn btn-success btn-sm" id="btnBalance" style="display: none;">⚖️ Dengele</button>
+                        <button class="btn btn-outline btn-sm" id="btnSearch">🔍 Ara</button>
+                        <button class="btn btn-outline btn-sm" id="btnReset">🔄 Sıfırla</button>
+                    </div>
+
+                    <div class="control-group" style="margin-top: var(--space-6);">
+                        <label class="control-label">Hızlı Ekleme</label>
+                        <div class="control-buttons">
+                            <button class="btn btn-sm btn-outline" id="btnRandom">🎲 Rastgele 5</button>
+                            <button class="btn btn-sm btn-outline" id="btnSample">📝 Örnek</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group" style="margin-top: var(--space-6);">
+                        <label class="control-label">Animasyon Hızı: <span id="speedLabel">1x</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="speedSlider" class="slider" min="0.25" max="2" step="0.25" value="1">
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: var(--font-size-xs); color: var(--color-gray-600);">
+                            <span>0.25x</span>
+                            <span>2x</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs for Traversal, Code, Complexity -->
+            <div class="tabs">
+                <ul class="tabs-list">
+                    <li><button class="tab-button active" data-tab="traversal">Traversal</button></li>
+                    <li><button class="tab-button" data-tab="code">C++ Kodu</button></li>
+                    <li><button class="tab-button" data-tab="complexity">Karmaşıklık</button></li>
+                </ul>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="tab-content active" id="tabTraversal">
+                <div class="card">
+                    <h3 class="mb-4">Ağaç Traversal</h3>
+                    <div class="control-buttons" style="margin-bottom: var(--space-6);">
+                        <button class="btn btn-sm btn-primary" id="btnInorder">Inorder</button>
+                        <button class="btn btn-sm btn-primary" id="btnPreorder">Preorder</button>
+                        <button class="btn btn-sm btn-primary" id="btnPostorder">Postorder</button>
+                        <button class="btn btn-sm btn-primary" id="btnLevelOrder">Level Order</button>
+                    </div>
+                    <div>
+                        <strong>Sonuç:</strong>
+                        <div id="traversalResult" style="margin-top: var(--space-3); padding: var(--space-4); background: var(--color-gray-100); border-radius: var(--radius-md); font-family: var(--font-family-code); min-height: 50px;">
+                            Bir traversal yöntemi seçin...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tabCode">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">BST Node Yapısı ve Temel İşlemler</span>
+                        <button class="code-copy-btn" id="btnCopyCode">Kopyala</button>
+                    </div>
+                    <pre class="code-content" id="codeContent"><code>// Binary Search Tree Node
+struct TreeNode {
+    int value;
+    TreeNode* left;
+    TreeNode* right;
+    
+    TreeNode(int val) : value(val), left(nullptr), right(nullptr) {}
+};
+
+class BST {
+private:
+    TreeNode* root;
+    
+    // Insert helper
+    TreeNode* insertHelper(TreeNode* node, int value) {
+        if (node == nullptr) {
+            return new TreeNode(value);
+        }
+        
+        if (value < node->value) {
+            node->left = insertHelper(node->left, value);
+        } else if (value > node->value) {
+            node->right = insertHelper(node->right, value);
+        }
+        
+        return node;
+    }
+    
+    // Search helper
+    TreeNode* searchHelper(TreeNode* node, int value) {
+        if (node == nullptr || node->value == value) {
+            return node;
+        }
+        
+        if (value < node->value) {
+            return searchHelper(node->left, value);
+        } else {
+            return searchHelper(node->right, value);
+        }
+    }
+    
+    // Find minimum node
+    TreeNode* findMin(TreeNode* node) {
+        while (node->left != nullptr) {
+            node = node->left;
+        }
+        return node;
+    }
+    
+    // Delete helper
+    TreeNode* deleteHelper(TreeNode* node, int value) {
+        if (node == nullptr) return nullptr;
+        
+        if (value < node->value) {
+            node->left = deleteHelper(node->left, value);
+        } else if (value > node->value) {
+            node->right = deleteHelper(node->right, value);
+        } else {
+            // Node with one or no child
+            if (node->left == nullptr) {
+                TreeNode* temp = node->right;
+                delete node;
+                return temp;
+            } else if (node->right == nullptr) {
+                TreeNode* temp = node->left;
+                delete node;
+                return temp;
+            }
+            
+            // Node with two children
+            TreeNode* temp = findMin(node->right);
+            node->value = temp->value;
+            node->right = deleteHelper(node->right, temp->value);
+        }
+        return node;
+    }
+    
+    // Inorder traversal
+    void inorderHelper(TreeNode* node) {
+        if (node == nullptr) return;
+        inorderHelper(node->left);
+        cout << node->value << " ";
+        inorderHelper(node->right);
+    }
+
+public:
+    BST() : root(nullptr) {}
+    
+    void insert(int value) {
+        root = insertHelper(root, value);
+    }
+    
+    TreeNode* search(int value) {
+        return searchHelper(root, value);
+    }
+    
+    void remove(int value) {
+        root = deleteHelper(root, value);
+    }
+    
+    void inorder() {
+        inorderHelper(root);
+        cout << endl;
+    }
+};</code></pre>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tabComplexity">
+                <div class="card">
+                    <h3 class="mb-4">Zaman ve Alan Karmaşıklığı</h3>
+                    <table class="complexity-table">
+                        <thead>
+                            <tr>
+                                <th>İşlem</th>
+                                <th>Average Case</th>
+                                <th>Worst Case</th>
+                            </tr>
+                        </thead>
+                        <tbody id="complexityTableBody">
+                            <tr>
+                                <td>Search (Arama)</td>
+                                <td>O(log n)</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td>Insert (Ekleme)</td>
+                                <td>O(log n)</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td>Delete (Silme)</td>
+                                <td>O(log n)</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td>Space (Alan)</td>
+                                <td>O(n)</td>
+                                <td>O(n)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div style="margin-top: var(--space-6); padding: var(--space-4); background: var(--color-gray-50); border-radius: var(--radius-md);">
+                        <p><strong>Not:</strong> BST'de worst case O(n), ağaç tamamen dengesiz olduğunda (linked list gibi) oluşur. 
+                        Dengeli ağaçlar (AVL, Red-Black) worst case'i O(log n)'ye garantiler.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/utils/EventBus.js"></script>
+    <script src="assets/js/core/TreeNode.js"></script>
+    <script src="assets/js/core/TreeBase.js"></script>
+    <script src="assets/js/trees/BSTTree.js"></script>
+    <script src="assets/js/trees/AVLTree.js"></script>
+    <script src="assets/js/trees/RedBlackTree.js"></script>
+    <script src="assets/js/trees/MinHeap.js"></script>
+    <script src="assets/js/trees/Trie.js"></script>
+    <script src="assets/js/trees/BTree.js"></script>
+    <script src="assets/js/trees/BPlusTree.js"></script>
+    <script src="assets/js/trees/SegmentTree.js"></script>
+    <script src="assets/js/trees/FenwickTree.js"></script>
+    <script src="assets/js/core/TreeFactory.js"></script>
+    <script src="assets/js/visualization/TreeVisualizer.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/pages/trees-page.js"></script>
+</body>
+</html>
